@@ -1,0 +1,142 @@
+/* ===== COLORS =====
+   Variables: set a color once here, then reuse it everywhere with var(--name) */
+:root {
+  --paper: #f3f5f8;   /* page background */
+  --card: #ffffff;    /* project boxes */
+  --ink: #172033;     /* main text */
+  --muted: #5a6478;   /* smaller, softer text */
+  --line: #d5dbe6;    /* borders and dividers */
+  --accent: #c98100;  /* amber highlight */
+}
+
+/* ===== WHOLE PAGE ===== */
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Atkinson Hyperlegible", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 720px;   /* keeps lines from getting too long on big screens */
+  margin: 0 auto;     /* centers the page */
+  padding: 40px 20px;
+}
+
+/* ===== HEADINGS ===== */
+h1, h2, h3 {
+  font-family: "Bricolage Grotesque", Arial, sans-serif;
+  line-height: 1.2;
+}
+h1 {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 0 0 12px;
+}
+h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+h2::after {           /* short amber line under each section title */
+  content: "";
+  display: block;
+  width: 40px;
+  height: 4px;
+  background: var(--accent);
+  margin-top: 8px;
+}
+h3 {
+  font-size: 21px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+/* The small text inside your h3 tags (status + "Uses:") */
+h3 small {
+  display: block;
+  font-family: "Atkinson Hyperlegible", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;   /* removes the bold it got from the h3 */
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ===== SECTIONS ===== */
+section {
+  margin: 0;
+}
+section > p {         /* the line under "Working on now" */
+  color: var(--muted);
+  margin-top: 0;
+}
+
+/* ===== PROJECT BOXES ===== */
+article {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+article p {
+  margin: 0;
+}
+article p small {     /* "Built with the help of claude" */
+  color: var(--muted);
+}
+
+/* ===== INTERESTS LIST (shown as tags) ===== */
+ul {
+  list-style: none;   /* removes the bullet dots */
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;    /* lets the tags go onto a new line */
+  gap: 8px;
+}
+li {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;   /* very round = pill shape */
+  padding: 4px 14px;
+  font-size: 15px;
+}
+
+/* ===== TOOLBOX TABLE ===== */
+table {
+  border-collapse: collapse;  /* merges double borders into one line */
+  width: 100%;
+  background: var(--card);
+}
+th, td {
+  border: 1px solid var(--line);
+  padding: 10px 14px;
+  text-align: left;
+}
+th {
+  width: 130px;
+  color: var(--muted);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== DIVIDERS ===== */
+hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 40px 0;
+}
+
+/* ===== LINKS ===== */
+a {
+  color: var(--accent);
+  font-weight: 700;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  color: var(--muted);
+  font-size: 15px;
+}
