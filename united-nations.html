@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The UN and Our Theme</title>
+
+  <style>
+    /* body = the whole page. These rules center it in a readable column. */
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;      /* never wider than 800px */
+      margin: 0 auto;        /* auto left/right = centered */
+      padding: 20px;
+      background-color: #f4f8fb;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* The top bar: logo on the left, buttons on the right */
+    .topbar {
+      display: flex;                  /* puts the logo and buttons side by side */
+      align-items: center;            /* lines them up vertically */
+      justify-content: space-between; /* logo far left, buttons far right */
+      flex-wrap: wrap;                /* on small screens, wrap onto 2 lines */
+      gap: 10px;
+      background-color: white;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #009edb;
+    }
+
+    .topbar img { height: 50px; }
+
+    /* The links that look like buttons */
+    .btn {
+      display: inline-block;
+      background-color: #009edb;
+      color: white;
+      text-decoration: none;     /* removes the underline */
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .btn:hover { background-color: #0077a8; }   /* darker when the mouse is over it */
+
+    /* The header at the top, in UN blue */
+    header {
+      background-color: #009edb;
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h2 { color: #0077a8; }
+
+    /* Each section is a white card */
+    section {
+      background-color: white;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    /* A colored stripe down the left side of the theme sections */
+    section.theme {
+      border-left: 8px solid #009edb;
+    }
+
+    /* The small label above each theme heading ("Part 1", etc.) */
+    .label {
+      color: #666;
+      font-size: 14px;
+      text-transform: uppercase;   /* makes it ALL CAPS */
+    }
+
+    blockquote {
+      font-style: italic;
+      margin: 0;
+      padding: 10px 20px;
+      background-color: #e8f4fa;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP BAR ===== -->
+  <nav class="topbar">
+    <a href="https://www.mcstayuman.edu.ph/" target="_blank" rel="noopener">
+      <img src="https://www.mcstayuman.edu.ph/assets/logo/mcs_logo.png" alt="Manila Cathedral School logo">
+    </a>
+    <div>
+      <a class="btn" href="https://www.mcstayuman.edu.ph/" target="_blank" rel="noopener">MCS Website</a>
+      <a class="btn" href="https://www.facebook.com/mcstayuman1949" target="_blank" rel="noopener">Facebook Page</a>
+    </div>
+  </nav>
+
+  <!-- ===== HEADER: the theme is the title ===== -->
+  <header>
+    <h1>Restoring Trust, Embracing Transformation</h1>
+    <p>MCSians Building a World That Serves All</p>
+    <p><small>Seen through the work of the United Nations</small></p>
+  </header>
+
+  <main>
+
+    <!-- ===== INTRO ===== -->
+    <section>
+      <h2>First, what is the United Nations?</h2>
+      <p>
+        The United Nations (UN) is an organization of countries, founded in 1945 right after World War II.
+        It has 193 member states, and its headquarters is in New York City.
+        It was created so that nations would talk and work together instead of fighting,
+        which fits our school theme well. The three parts of the theme are below,
+        each connected to what the UN does.
+      </p>
+      <blockquote>
+        Restoring Trust, Embracing Transformation: MCSians Building a World That Serves All.
+      </blockquote>
+    </section>
+
+    <!-- ===== PART 1 ===== -->
+    <section class="theme">
+      <p class="label">Part 1</p>
+      <h2>Restoring Trust</h2>
+      <p>
+        After World War II, countries no longer trusted each other. The UN was founded in 1945
+        to rebuild that trust, and it still does so in a few ways:
+      </p>
+      <ul>
+        <li><strong>The UN Charter</strong>: the founding agreement, in which countries promised to settle disputes peacefully.</li>
+        <li><strong>The Security Council</strong>: responsible for international peace and security.</li>
+        <li><strong>Peacekeepers</strong>: UN personnel who help keep the peace in areas of conflict.</li>
+        <li><strong>The International Court of Justice</strong>: settles legal disputes between countries with the law, not weapons.</li>
+      </ul>
+      <p>
+        Trust grows when people keep their promises. The same is true in school.
+      </p>
+    </section>
+
+    <!-- ===== PART 2 ===== -->
+    <section class="theme">
+      <p class="label">Part 2</p>
+      <h2>Embracing Transformation</h2>
+      <p>
+        The world keeps changing, and so do its problems. In 2015, all UN member states adopted the
+        <strong>17 Sustainable Development Goals (SDGs)</strong>, a plan to change the world by 2030.
+        Some examples:
+      </p>
+      <ul>
+        <li><strong>Goal 1</strong>: No Poverty</li>
+        <li><strong>Goal 2</strong>: Zero Hunger</li>
+        <li><strong>Goal 4</strong>: Quality Education</li>
+        <li><strong>Goal 13</strong>: Climate Action</li>
+        <li><strong>Goal 16</strong>: Peace, Justice and Strong Institutions</li>
+      </ul>
+      <p>
+        Embracing transformation means not being afraid of change, and working to make it change for the better.
+      </p>
+    </section>
+
+    <!-- ===== PART 3 ===== -->
+    <section class="theme">
+      <p class="label">Part 3</p>
+      <h2>A World That Serves All</h2>
+      <p>
+        A world that serves all means no one is left out. The UN works on this through:
+      </p>
+      <ul>
+        <li><strong>Human rights</strong>: the Universal Declaration of Human Rights, adopted in 1948, says everyone is born free and equal in dignity and rights.</li>
+        <li><strong>Humanitarian aid</strong>: food, shelter and medicine in emergencies.</li>
+        <li><strong>Leaving no one behind</strong>: the promise of the Sustainable Development Goals.</li>
+      </ul>
+      <p>
+        The Philippines is also part of this story: it was one of the original UN members in 1945.
+      </p>
+    </section>
+
+    <!-- ===== WHAT MCSIANS CAN DO ===== -->
+    <section>
+      <h2>What can MCSians do?</h2>
+      <p>You don't have to be a country to help build this kind of world:</p>
+      <ol>
+        <li><strong>Restore trust</strong> by being honest and keeping your word.</li>
+        <li><strong>Embrace transformation</strong> by learning new things, even when they are hard.</li>
+        <li><strong>Serve all</strong> by treating everyone fairly and helping the people around you.</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Made by Andrei Cedrix B. Sale · Manila Cathedral School</p>
+  </footer>
+
+</body>
+</html>
