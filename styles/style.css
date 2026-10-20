@@ -1,23 +1,24 @@
 /* ===== FONTS ===== */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap");
 
 /* ===== COLORS =====
    Variables: set a color once here, then reuse it everywhere with var(--name) */
 :root {
-  --paper: #0f1117;   /* page background */
-  --card: #181b24;    /* project boxes */
-  --ink: #e6e9f0;     /* main text */
-  --muted: #9aa3b5;   /* smaller, softer text */
-  --line: #2a2f3d;    /* borders and dividers */
-  --accent: #f0b429;  /* amber highlight */
+  --paper: #1e1f22;   /* page background (Discord darkest) */
+  --card: #2b2d31;    /* project boxes */
+  --ink: #dbdee1;     /* main text */
+  --muted: #949ba4;   /* smaller, softer text */
+  --line: #3f4147;    /* borders and dividers */
+  --accent: #5865f2;  /* blurple (the Add Friend / Accept Quest button color) */
+  --link: #00a8fc;    /* link blue, like the Roblox link in the quest card */
 }
 
 /* ===== WHOLE PAGE ===== */
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: "Inter", Arial, sans-serif;
-  font-size: 17px;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
   line-height: 1.6;
   max-width: 720px;   /* keeps lines from getting too long on big screens */
   margin: 0 auto;     /* centers the page */
@@ -26,29 +27,21 @@ body {
 
 /* ===== HEADINGS ===== */
 h1, h2, h3 {
-  font-family: "Space Grotesk", Arial, sans-serif;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.2;
 }
 h1 {
-  font-size: 48px;
-  font-weight: 800;
+  font-size: 40px;
+  font-weight: 700;
   margin: 0 0 12px;
 }
 h2 {
-  font-size: 28px;
-  font-weight: 800;
-  margin: 0 0 8px;
-}
-h2::after {           /* short amber line under each section title */
-  content: "";
-  display: block;
-  width: 40px;
-  height: 4px;
-  background: var(--accent);
-  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 12px;
 }
 h3 {
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 500;
   margin: 0 0 8px;
 }
@@ -56,7 +49,6 @@ h3 {
 /* The small text inside your h3 tags (status + "Uses:") */
 h3 small {
   display: block;
-  font-family: "Inter", Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;   /* removes the bold it got from the h3 */
   color: var(--muted);
@@ -75,9 +67,9 @@ section > p {         /* the line under "Working on now" */
 /* ===== PROJECT BOXES ===== */
 article {
   background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 20px;
+  border-left: 4px solid var(--accent);   /* blurple edge, like a Discord embed */
+  border-radius: 8px;
+  padding: 16px 20px;
   margin-bottom: 16px;
 }
 article p {
@@ -97,9 +89,8 @@ ul {
 }
 li {
   background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 999px;   /* very round = pill shape */
-  padding: 4px 14px;
+  border-radius: 4px;
+  padding: 4px 12px;
   font-size: 15px;
 }
 
@@ -118,8 +109,7 @@ th {
   width: 130px;
   color: var(--muted);
   font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-weight: 700;
 }
 
 /*dividers*/
@@ -131,11 +121,11 @@ hr {
 
 /*Links*/
 a {
-  color: var(--accent);
-  font-weight: 700;
+  color: var(--link);
+  text-decoration: none;
 }
 a:hover {
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 /*feet*/
