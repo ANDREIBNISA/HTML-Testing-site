@@ -1,0 +1,31 @@
+name: Update index.html
+
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - index.html
+
+permissions:
+  contents: write
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate index.html
+        run: node .github/scripts/generate-index.js
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet index.html; then
+            echo "index.html already up to date"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Update index.html"
+            git push
+          fi

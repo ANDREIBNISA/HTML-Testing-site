@@ -1,19 +1,22 @@
+/* ===== FONTS ===== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap");
+
 /* ===== COLORS =====
    Variables: set a color once here, then reuse it everywhere with var(--name) */
 :root {
-  --paper: #f3f5f8;   /* page background */
-  --card: #ffffff;    /* project boxes */
-  --ink: #172033;     /* main text */
-  --muted: #5a6478;   /* smaller, softer text */
-  --line: #d5dbe6;    /* borders and dividers */
-  --accent: #c98100;  /* amber highlight */
+  --paper: #0f1117;   /* page background */
+  --card: #181b24;    /* project boxes */
+  --ink: #e6e9f0;     /* main text */
+  --muted: #9aa3b5;   /* smaller, softer text */
+  --line: #2a2f3d;    /* borders and dividers */
+  --accent: #f0b429;  /* amber highlight */
 }
 
 /* ===== WHOLE PAGE ===== */
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: "Atkinson Hyperlegible", Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   font-size: 17px;
   line-height: 1.6;
   max-width: 720px;   /* keeps lines from getting too long on big screens */
@@ -23,7 +26,7 @@ body {
 
 /* ===== HEADINGS ===== */
 h1, h2, h3 {
-  font-family: "Bricolage Grotesque", Arial, sans-serif;
+  font-family: "Space Grotesk", Arial, sans-serif;
   line-height: 1.2;
 }
 h1 {
@@ -53,7 +56,7 @@ h3 {
 /* The small text inside your h3 tags (status + "Uses:") */
 h3 small {
   display: block;
-  font-family: "Atkinson Hyperlegible", Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;   /* removes the bold it got from the h3 */
   color: var(--muted);
@@ -100,7 +103,7 @@ li {
   font-size: 15px;
 }
 
-/* ===== TOOLBOX TABLE ===== */
+/*toolbox table*/
 table {
   border-collapse: collapse;  /* merges double borders into one line */
   width: 100%;
@@ -119,14 +122,14 @@ th {
   letter-spacing: 1px;
 }
 
-/* ===== DIVIDERS ===== */
+/*dividers*/
 hr {
   border: none;
   border-top: 1px solid var(--line);
   margin: 40px 0;
 }
 
-/* ===== LINKS ===== */
+/*Links*/
 a {
   color: var(--accent);
   font-weight: 700;
@@ -135,7 +138,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* ===== FOOTER ===== */
+/*feet*/
 footer {
   color: var(--muted);
   font-size: 15px;
