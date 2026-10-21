@@ -1,23 +1,25 @@
 /* ===== FONTS ===== */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap");
 
 /* ===== COLORS =====
    Variables: set a color once here, then reuse it everywhere with var(--name) */
 :root {
-  --paper: #0f1117;   /* page background */
-  --card: #181b24;    /* project boxes */
-  --ink: #e6e9f0;     /* main text */
-  --muted: #9aa3b5;   /* smaller, softer text */
-  --line: #2a2f3d;    /* borders and dividers */
-  --accent: #f0b429;  /* amber highlight */
+  --paper: #313338;   /* page background */
+  --card: #2b2d31;    /* project boxes, tags, table */
+  --ink: #dbdee1;     /* main text */
+  --muted: #949ba4;   /* smaller, softer text */
+  --line: #3f4147;    /* borders and dividers */
+  --accent: #5865f2;  /* blurple stripe on in-progress projects */
+  --green: #23a559;   /* green stripe on finished projects */
+  --link: #00a8fc;    /* link blue */
 }
 
 /* ===== WHOLE PAGE ===== */
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: "Inter", Arial, sans-serif;
-  font-size: 17px;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
   line-height: 1.6;
   max-width: 720px;   /* keeps lines from getting too long on big screens */
   margin: 0 auto;     /* centers the page */
@@ -26,29 +28,21 @@ body {
 
 /* ===== HEADINGS ===== */
 h1, h2, h3 {
-  font-family: "Space Grotesk", Arial, sans-serif;
+  color: #f2f3f5;
   line-height: 1.2;
 }
 h1 {
-  font-size: 48px;
-  font-weight: 800;
+  font-size: 40px;
+  font-weight: 700;
   margin: 0 0 12px;
 }
 h2 {
-  font-size: 28px;
-  font-weight: 800;
-  margin: 0 0 8px;
-}
-h2::after {           /* short amber line under each section title */
-  content: "";
-  display: block;
-  width: 40px;
-  height: 4px;
-  background: var(--accent);
-  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 12px;
 }
 h3 {
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 500;
   margin: 0 0 8px;
 }
@@ -56,7 +50,6 @@ h3 {
 /* The small text inside your h3 tags (status + "Uses:") */
 h3 small {
   display: block;
-  font-family: "Inter", Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;   /* removes the bold it got from the h3 */
   color: var(--muted);
@@ -72,18 +65,21 @@ section > p {         /* the line under "Working on now" */
   margin-top: 0;
 }
 
-/* ===== PROJECT BOXES ===== */
+/* ===== PROJECT BOXES (colored stripe on the left) ===== */
 article {
   background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 20px;
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 16px 20px;
   margin-bottom: 16px;
+}
+article.done {
+  border-left-color: var(--green);
 }
 article p {
   margin: 0;
 }
-article p small {     /* "Built with the help of claude" */
+article p small {     /* the disclaimer line */
   color: var(--muted);
 }
 
@@ -98,12 +94,12 @@ ul {
 li {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 999px;   /* very round = pill shape */
-  padding: 4px 14px;
+  border-radius: 6px;
+  padding: 4px 12px;
   font-size: 15px;
 }
 
-/*toolbox table*/
+/* ===== TOOLBOX TABLE ===== */
 table {
   border-collapse: collapse;  /* merges double borders into one line */
   width: 100%;
@@ -118,27 +114,26 @@ th {
   width: 130px;
   color: var(--muted);
   font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-weight: 700;
 }
 
-/*dividers*/
+/* ===== DIVIDERS ===== */
 hr {
   border: none;
   border-top: 1px solid var(--line);
   margin: 40px 0;
 }
 
-/*Links*/
+/* ===== LINKS ===== */
 a {
-  color: var(--accent);
-  font-weight: 700;
-}
-a:hover {
+  color: var(--link);
   text-decoration: none;
 }
+a:hover {
+  text-decoration: underline;
+}
 
-/*feet*/
+/* ===== FEET ===== */
 footer {
   color: var(--muted);
   font-size: 15px;
