@@ -4,13 +4,14 @@
 /* ===== COLORS =====
    Variables: set a color once here, then reuse it everywhere with var(--name) */
 :root {
-  --paper: #1e1f22;   /* page background (Discord darkest) */
-  --card: #2b2d31;    /* project boxes */
+  --paper: #313338;   /* page background */
+  --card: #2b2d31;    /* project boxes, tags, table */
   --ink: #dbdee1;     /* main text */
   --muted: #949ba4;   /* smaller, softer text */
   --line: #3f4147;    /* borders and dividers */
-  --accent: #5865f2;  /* blurple (the Add Friend / Accept Quest button color) */
-  --link: #00a8fc;    /* link blue, like the Roblox link in the quest card */
+  --accent: #5865f2;  /* blurple stripe on in-progress projects */
+  --green: #23a559;   /* green stripe on finished projects */
+  --link: #00a8fc;    /* link blue */
 }
 
 /* ===== WHOLE PAGE ===== */
@@ -27,7 +28,7 @@ body {
 
 /* ===== HEADINGS ===== */
 h1, h2, h3 {
-  font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #f2f3f5;
   line-height: 1.2;
 }
 h1 {
@@ -64,18 +65,21 @@ section > p {         /* the line under "Working on now" */
   margin-top: 0;
 }
 
-/* ===== PROJECT BOXES ===== */
+/* ===== PROJECT BOXES (colored stripe on the left) ===== */
 article {
   background: var(--card);
-  border-left: 4px solid var(--accent);   /* blurple edge, like a Discord embed */
-  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
   padding: 16px 20px;
   margin-bottom: 16px;
+}
+article.done {
+  border-left-color: var(--green);
 }
 article p {
   margin: 0;
 }
-article p small {     /* "Built with the help of claude" */
+article p small {     /* the disclaimer line */
   color: var(--muted);
 }
 
@@ -89,12 +93,13 @@ ul {
 }
 li {
   background: var(--card);
-  border-radius: 4px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
   padding: 4px 12px;
   font-size: 15px;
 }
 
-/*toolbox table*/
+/* ===== TOOLBOX TABLE ===== */
 table {
   border-collapse: collapse;  /* merges double borders into one line */
   width: 100%;
@@ -112,14 +117,14 @@ th {
   font-weight: 700;
 }
 
-/*dividers*/
+/* ===== DIVIDERS ===== */
 hr {
   border: none;
   border-top: 1px solid var(--line);
   margin: 40px 0;
 }
 
-/*Links*/
+/* ===== LINKS ===== */
 a {
   color: var(--link);
   text-decoration: none;
@@ -128,7 +133,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/*feet*/
+/* ===== FEET ===== */
 footer {
   color: var(--muted);
   font-size: 15px;
