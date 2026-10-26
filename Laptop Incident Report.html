@@ -1,0 +1,279 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Laptop Incident Report</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: single readable column, forensic-log feel; timestamps and hashes in mono, severity carried by semantic dots and pills */
+:root {
+  --bg: #f3f5f7; --card: #ffffff; --text: #16202a; --muted: #586472; --line: #dce2e8;
+  --red: #b4321e; --red-bg: #fbeae6; --amber: #8f5a00; --amber-bg: #fdf3e0;
+  --green: #2a7448; --green-bg: #e5f2ea; --blue: #2c5d9e; --blue-bg: #e7eef8;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1419; --card: #171e26; --text: #e5eaef; --muted: #95a1ae; --line: #2a333d;
+    --red: #ff8a70; --red-bg: #3a201a; --amber: #f2b54d; --amber-bg: #352a14;
+    --green: #6fcb93; --green-bg: #18291f; --blue: #8db4ef; --blue-bg: #1b2535;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1419; --card: #171e26; --text: #e5eaef; --muted: #95a1ae; --line: #2a333d;
+  --red: #ff8a70; --red-bg: #3a201a; --amber: #f2b54d; --amber-bg: #352a14;
+  --green: #6fcb93; --green-bg: #18291f; --blue: #8db4ef; --blue-bg: #1b2535;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 var(--font-body); }
+main { max-width: 860px; margin: 0 auto; padding-block: 32px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { text-wrap: balance; }
+header h1 { font-size: 28px; line-height: 1.2; margin: 0 0 6px; font-weight: 700; }
+.meta { color: var(--muted); margin: 0 0 24px; font-size: 14px; }
+h2 { font-size: 19px; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+h3 { font-size: 15px; margin: 22px 0 8px; }
+p { margin: 0 0 12px; }
+code { font: 500 13px/1.4 var(--font-mono); background: var(--line); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin: 0 0 14px; }
+.verdict { border-left: 5px solid var(--green); }
+.verdict strong.big { font-size: 17px; color: var(--green); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 16px 0 0; }
+.stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.stat b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 13px; }
+.phase { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; margin: 0 0 8px; }
+.p-red { background: var(--red-bg); color: var(--red); }
+.p-amber { background: var(--amber-bg); color: var(--amber); }
+.p-blue { background: var(--blue-bg); color: var(--blue); }
+ol.tl { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+ol.tl li { position: relative; padding: 0 0 14px 18px; }
+ol.tl li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--card); border: 2px solid var(--muted); }
+ol.tl li.bad::before { border-color: var(--red); background: var(--red); }
+ol.tl li.warn::before { border-color: var(--amber); background: var(--amber); }
+ol.tl li.good::before { border-color: var(--green); background: var(--green); }
+ol.tl li.milestone { padding-top: 4px; padding-bottom: 18px; }
+ol.tl li.milestone::before { border-color: var(--red); background: var(--red); width: 14px; height: 14px; left: -8px; top: 9px; }
+.milestone span { display: inline-block; background: var(--red-bg); color: var(--red); font: 600 13px/1.4 var(--font-mono); letter-spacing: .08em; padding: 4px 10px; border-radius: 6px; }
+.t { font: 600 13px/1.4 var(--font-mono); color: var(--muted); display: block; font-variant-numeric: tabular-nums; }
+ol.tl ul { margin: 4px 0 0; padding-left: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+tr:last-child td { border-bottom: 0; }
+th { color: var(--muted); font-weight: 600; font-size: 13px; }
+.tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin: 0 0 12px; }
+ul.check { list-style: none; padding: 0; margin: 0; }
+ul.check li { padding: 6px 0 6px 28px; position: relative; border-bottom: 1px solid var(--line); }
+ul.check li:last-child { border-bottom: 0; }
+ul.check li::before { position: absolute; left: 2px; top: 6px; font-weight: 700; }
+ul.check li.done::before { content: "✓"; color: var(--green); }
+ul.check li.todo::before { content: "○"; color: var(--amber); }
+ul.check li.hit::before { content: "!"; color: var(--red); left: 6px; }
+.note { color: var(--muted); font-size: 13px; }
+@media print { .card, .stat, .tablewrap { break-inside: avoid; } }
+</style>
+<main>
+
+<header>
+  <h1>Laptop security incident report</h1>
+  <p class="meta">Laptop “LAPTOP” (HP, Windows 11 Pro) · Incident: Saturday 24 October 2026 · Investigation: Monday 26 October 2026 · All times are local (Singapore Standard Time, UTC+8)</p>
+</header>
+
+<div class="card verdict">
+  <strong class="big">Verdict: the laptop is clean. The stolen accounts still need to be secured.</strong>
+  <p style="margin:8px 0 12px">On 24 Oct at 3:46 PM, someone using the laptop ran a fake game installer. It was password-stealing malware. It was active for 2 hours 21 minutes until Microsoft Defender stopped it at 6:07 PM. In that time it copied saved browser passwords, login cookies, Discord tokens and 2FA codes from every browser profile on the laptop.</p>
+  <p>On 26 Oct at about 5:30 AM, attackers used that stolen data to take over several accounts (Instagram, two Gmail accounts, Claude, an alt Discord).</p>
+  <p style="margin:0">Two full investigations on 26 Oct, one with administrator access, found no malware left on the laptop.</p>
+  <div class="stats">
+    <div class="stat"><b>2h 21m</b><span>malware active</span></div>
+    <div class="stat"><b>8</b><span>browser profiles exposed</span></div>
+    <div class="stat"><b>~164</b><span>saved passwords stolen</span></div>
+    <div class="stat"><b>None</b><span>malware remaining</span></div>
+  </div>
+</div>
+
+<h2>1. Timeline</h2>
+
+<div class="card">
+  <span class="phase p-red">Phase 1: Infection · Saturday 24 Oct</span>
+  <ol class="tl">
+    <li><span class="t">12:16 PM</span>Laptop started. It was not restarted again until the investigation.</li>
+    <li class="warn"><span class="t">3:35 PM</span><code>needy-girl-overdose.apk</code> (103 MB, Android app) downloaded while searching for a free copy of the paid game <i>Needy Streamer Overload</i>. Deleted at 3:37 PM.</li>
+    <li class="warn"><span class="t">3:42 PM</span>Redirected to a malware site. <code>C0MPLETE_SETUP_(KEY=6553).zip</code> downloaded and opened.</li>
+    <li class="good"><span class="t">3:42 – 3:43 PM</span><b>Defender blocked it</b> (<code>Trojan:Script/Sabsik.FL.A!ml</code>) and ran an automatic quick scan (3:43–3:54 PM).</li>
+    <li class="warn"><span class="t">3:45 PM</span>Second try: <code>Download_CJQS8WTA-r2.zip</code> downloaded.</li>
+    <li class="warn"><span class="t">3:46 PM</span>Third try: <code>Bundle-T2QPJG0.zip</code> downloaded and unzipped. Contained <code>Install.exe</code>, <code>CastleLib.dll</code>, <code>Install.exe.config</code> and a <code>resources</code> folder.</li>
+    <li class="bad"><span class="t">3:46:37 PM</span>Malware created its working folder: <code>C:\ProgramData\MyCompany\MyApp\cache</code></li>
+    <li class="bad"><span class="t">3:46:39 PM</span>Hidden malicious script (<code>cscript.exe</code> / VBScript) started.</li>
+    <li class="milestone"><span>DATA THEFT BEGINS</span></li>
+    <li class="bad"><span class="t">3:46:40 PM</span><b><code>Install.exe</code> ran. Defender did not recognise it.</b> It ran again up to 3:47:58 PM.</li>
+    <li><span class="t">3:47 PM</span>The bundle's other files were opened, which launched VS Code.</li>
+    <li><span class="t">3:48 PM</span>All downloaded files moved to the Recycle Bin. It probably looked like “nothing happened”.</li>
+    <li class="bad"><span class="t">3:46 – 6:07 PM</span><b>Malware active for 2 hours 21 minutes</b>, with full access to browser data, Discord and saved logins.</li>
+    <li class="good"><span class="t">6:07:45 PM</span><b>Defender caught the second stage</b> (<code>Trojan:Script/Wacatac.H!ml</code>, <code>payload.cmd</code>, run by the hidden script).</li>
+    <li class="good"><span class="t">6:08 PM</span>Defender removed <code>payload.cmd</code> and killed the malicious script.</li>
+    <li><span class="t">10:42 PM</span>Discord updated and Vencord re-applied. Both checked later and found clean.</li>
+  </ol>
+</div>
+
+<div class="card">
+  <span class="phase p-amber">Phase 2: Account takeover · Monday 26 Oct</span>
+  <ol class="tl">
+    <li class="bad"><span class="t">~5:30 AM</span>Attackers used the stolen logins and took over:
+      <ul>
+        <li>Instagram (a scam story was posted)</li>
+        <li>Two Gmail accounts</li>
+        <li>Claude</li>
+        <li>Discord account, which sent “MrBeast casino” scam messages</li>
+      </ul>
+      No logins seen yet on other medias.</li>
+    <li><span class="t">Why there were no “new login” alerts</span>Stolen login <b>cookies</b> let the attacker reuse existing sessions. That gets past passwords and 2FA, and it looks like the laptop's own session rather than a new device.</li>
+    <li><span class="t">Nothing on the laptop</span>Nothing happened on the laptop itself at that time. Activity logs show only normal use (screenshots, Photos, Notepad). The attack ran from the attacker's own machine.</li>
+  </ol>
+</div>
+
+<div class="card">
+  <span class="phase p-blue">Phase 3: Investigation and response · Monday 26 Oct</span>
+  <ol class="tl">
+    <li><span class="t">6:27 AM</span>Read-only investigation started.</li>
+    <li class="warn"><span class="t">6:30 AM</span>Defender history showed the 24 Oct infection. The Windows recent-files list and the Recycle Bin gave the full chain of downloads.</li>
+    <li><span class="t">6:40 AM</span>Empty <code>MyCompany</code> malware folder deleted by the previous holder.</li>
+    <li><span class="t">8:44 AM</span>Admin-level read-only scan: Defender exclusions, record of every program that ran, login history, system persistence, Remote Desktop logs.</li>
+    <li class="good"><span class="t">8:56 AM</span>Defender <b>full scan</b> started.</li>
+    <li class="good"><span class="t">8:57 AM</span>Leftovers of 360 Extreme Browser moved to the Recycle Bin, with a backup of its registry key saved.</li>
+    <li class="good"><span class="t">8:58 AM</span><b>Remote Desktop turned off</b> (by previous holder).</li>
+    <li class="good"><span class="t">9:00 AM</span><b>4 old KMSAuto Defender exclusions removed</b> (by previous holder).</li>
+    <li class="good"><span class="t">Morning</span>Previous holder removed 4 leftover 360 firewall rules and permanently deleted the malware files from the Recycle Bin. Previous holder changed the Gmail password, reset Roblox 2FA and secured other accounts.</li>
+    <li class="good"><span class="t">10:39 – 10:50 AM</span>Second full sweep of everything since 24 Oct 3 PM (729,717 files, persistence, logs, network, browsers): <b>clean</b>.</li>
+  </ol>
+</div>
+
+<h2>2. Root cause</h2>
+<p>Current holder of the laptop tried to download a <b>pirated copy of a paid game</b> (<i>Needy Streamer Overload</i>) and was redirected to a malware site offering a fake “setup” zip with a key in its name. Defender blocked the first file, but the third attempt contained a <b>brand-new</b> malware installer (built hours earlier that day) that Defender did not recognise yet.</p>
+<p>Contributing factor: <b>several people's accounts were still logged in, with passwords saved</b>, in this laptop's browsers, including the previous holder's accounts from before the laptop was handed over in August. The malware took data from every browser profile.</p>
+
+<h2>3. The malware</h2>
+<div class="tablewrap"><table>
+  <tr><th>Item</th><th>Details</th></tr>
+  <tr><td>Type</td><td>Password and cookie stealer. Its loader file is named <code>CastleLib.dll</code>, consistent with the <b>CastleLoader</b> family, which installs info-stealers.</td></tr>
+  <tr><td>Defender names</td><td><code>Trojan:Script/Sabsik.FL.A!ml</code> (first zip, blocked)<br><code>Trojan:Script/Wacatac.H!ml</code> (second stage, removed)</td></tr>
+  <tr><td>Not detected</td><td><code>Install.exe</code> (the part that actually ran)</td></tr>
+  <tr><td>Install.exe SHA-256</td><td><code>3D2B22B6BC51E0918263F4420E6BDF7D982D961B54176C470CAC11841D1C9B33</code></td></tr>
+  <tr><td>CastleLib.dll SHA-256</td><td><code>F112F9EA68532EB97DE2CA252B89141B95F1C3FF2E1BA673831A0B882784F742</code></td></tr>
+  <tr><td>Status</td><td>All files permanently deleted. No running process, no persistence.</td></tr>
+</table></div>
+
+<h2>4. What was stolen</h2>
+
+<h3>4a. Accounts confirmed taken over (26 Oct)</h3>
+<ul class="check card">
+  <li class="hit">Instagram</li>
+  <li class="hit">Facebook</li>
+  <li class="hit">Authenticator</li>
+  <li class="hit">Two Gmail accounts</li>
+  <li class="hit">Claude</li>
+  <li class="hit">Discord</li>
+</ul>
+
+<h3>4b. Browser profiles on the laptop (all were copied by the malware)</h3>
+<div class="tablewrap"><table>
+  <tr><th>Browser profile</th><th>Signed in as</th><th>Saved logins</th></tr>
+  <tr><td>Edge “Xiao (previous holder's profile)”</td><td>ceilinnasale@gmail.com</td><td>65</td></tr>
+  <tr><td>Chrome “Person 1”</td><td>ceilinnasale@gmail.com</td><td>58</td></tr>
+  <tr><td>Chrome “alouise”</td><td>glenethyumol@gmail.com</td><td>31</td></tr>
+  <tr><td>Chrome “Cynthiana”</td><td>cynthianadear101@gmail.com</td><td>7</td></tr>
+  <tr><td>Chrome “Jason”</td><td>casperjason07@gmail.com</td><td>2</td></tr>
+  <tr><td>Chrome “dddddd”</td><td>(not signed in)</td><td>1</td></tr>
+  <tr><td>Edge “Profile 2”</td><td>peejaysale001@gmail.com</td><td>0</td></tr>
+</table></div>
+
+<h3>4c. Email addresses used on this laptop since 2025 (possibly stolen)</h3>
+<p>Each email below had a saved login or a signed-in browser profile on this laptop, so its saved passwords and login cookies were likely taken. <b>“Last used”</b> is the most recent date it was used here, either through a saved login or by opening the browser profile signed into it. Whoever owns each email should change the passwords for accounts using it and use <b>“log out of all devices”</b>. The more recent the date, the more urgent.</p>
+<div class="tablewrap"><table>
+  <tr><th>Email address</th><th>Last used on this laptop</th></tr>
+  <tr><td>ceilinnasale@gmail.com</td><td>26 Oct 2026</td></tr>
+  <tr><td>glenethyumol@gmail.com</td><td>26 Oct 2026</td></tr>
+  <tr><td>casperjason07@gmail.com</td><td>25 Oct 2026</td></tr>
+  <tr><td>cynthianadear101@gmail.com</td><td>24 Sep 2026</td></tr>
+  <tr><td>ynamackenzielegaspi28@gmail.com</td><td>19 Sep 2026</td></tr>
+  <tr><td>kendi_shop05@icloud.com</td><td>22 Aug 2026</td></tr>
+  <tr><td>peejaysale001@gmail.com</td><td>20 Aug 2026</td></tr>
+  <tr><td>miss.solar2012@gmail.com</td><td>1 Aug 2026</td></tr>
+  <tr><td>23-000162@mcstayuman.edu.ph</td><td>29 Jul 2026</td></tr>
+  <tr><td>andreisalew2010@gmail.com</td><td>2 May 2026</td></tr>
+  <tr><td>hiroshiaiden14@gmail.com</td><td>2 May 2026</td></tr>
+  <tr><td>aclstrucking@gmail.com</td><td>1 Nov 2025</td></tr>
+  <tr><td>ceidrixjeine@yahoo.com.ph</td><td>28 Oct 2025</td></tr>
+  <tr><td>23-000162@mcstauman.edu.ph</td><td>10 Jul 2025</td></tr>
+</table></div>
+<p class="note">3 other email addresses were last used before 2025 and are not listed.</p>
+
+<h3>4d. Other data likely taken</h3>
+<ul class="card">
+  <li><b>Login cookies</b> for every browser profile (lets attackers skip passwords and 2FA)</li>
+  <li><b>Discord login token</b> from the Discord app</li>
+  <li><b>2FA codes</b> in the Edge “Authenticator” extension (Xiao profile)</li>
+  <li>Other related accounts:
+    <ul>
+      <li><code>ceilinnasale@gmail.com</code>: Microsoft account used to sign in to Windows</li>
+      <li><code>andreisalew2010@gmail.com</code>: owns Chrome Remote Desktop on this laptop</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>5. What was checked and found clean</h2>
+<div class="tablewrap"><table>
+  <tr><th>Area</th><th>Result</th></tr>
+  <tr><td>Running programs and services</td><td>All legitimate, signed by real vendors</td></tr>
+  <tr><td>Startup entries, scheduled tasks, services, drivers, WMI, COM, IFEO, logon scripts, PowerShell profiles, Office add-ins, accessibility backdoors, compatibility shims</td><td>Nothing added by the malware</td></tr>
+  <tr><td>New programs since 24 Oct</td><td>85 files, all validly signed (Microsoft, Discord, Anthropic). 0 unsigned.</td></tr>
+  <tr><td>Defender</td><td>All protections on. No exclusions added by the malware. No detections since 24 Oct.</td></tr>
+  <tr><td>Network</td><td>Legitimate connections only. DNS points to the home router. No proxy, no hosts changes, no fake certificates.</td></tr>
+  <tr><td>Logins</td><td>No Remote Desktop logins, no failed login attempts, no new accounts</td></tr>
+  <tr><td>Browsers / Discord</td><td>No new extensions, no forced policies, no tampered shortcuts. Discord not injected.</td></tr>
+  <tr><td>Hidden crypto miners</td><td>No unusual CPU or GPU use</td></tr>
+  <tr><td>Event logs</td><td>No logs wiped (no “log cleared” events since 1 Oct)</td></tr>
+  <tr><td>Games folder</td><td>Clean. No Defender detections, no droppers, installer files verified.</td></tr>
+</table></div>
+
+<h2>6. Actions taken</h2>
+<ul class="check card">
+  <li class="done">Malware stopped by Defender (24 Oct, 6:08 PM)</li>
+  <li class="done">Malware files permanently deleted from the Recycle Bin</li>
+  <li class="done">Malware working folder deleted</li>
+  <li class="done">Remote Desktop turned off</li>
+  <li class="done">Old KMSAuto Defender exclusions removed</li>
+  <li class="done">360 Extreme Browser leftovers and firewall rules removed</li>
+  <li class="done">Gmail password changed</li>
+  <li class="done">Authenticator (2FA) reset</li>
+</ul>
+
+<h2>7. Still to do</h2>
+<ul class="check card">
+  <li class="todo"><b>Defender full scan:</b> started 8:56 AM, still running when this report was written</li>
+  <li class="todo"><b>Second Gmail:</b> change password. On both, check forwarding and filters.</li>
+  <li class="todo"><b>Claude and Twitch:</b> log out of all sessions</li>
+  <li class="todo"><b>Everyone listed in section 4c:</b> change those passwords and sign out of all devices</li>
+  <li class="todo"><i>Optional:</i> Defender Offline scan, report <code>Install.exe</code> to Microsoft, move to unique passwords and passkeys</li>
+</ul>
+
+<h2>8. Limitations</h2>
+<p>No investigation can guarantee 100%. The malware was a “loader” that can download other programs. No trace of any was found, but the full Defender scan and an optional Offline scan are the final confirmation.</p>
+<p>Windows' PowerShell activity logs have a fixed size, and the investigation's own activity filled them, overwriting entries older than the morning of 26 Oct. The key period (24 Oct, 3–7 PM) had already been reviewed. The malware used VBScript, which those logs don't record. All other logs are intact.</p>
+
+<h2>9. How to avoid this next time</h2>
+<ul>
+  <li>A downloaded “setup” with a <b>KEY or password</b> in its name, or a site that tells you to turn off your antivirus, is malware.</li>
+  <li>Don't keep other people's accounts logged in on a shared laptop. Sign out before handing a device over.</li>
+  <li>Keep 2FA codes on your phone, not in a browser extension.</li>
+  <li>Use unique passwords (a password manager) and passkeys where offered.</li>
+  <li>Never add Defender exclusions for downloaded games or tools.</li>
+</ul>
+
+<p class="note" style="margin-top:32px">Report prepared 26 Oct 2026 from Windows Defender history, Windows event logs, records of programs that ran, Recycle Bin and recent-file records, and file and registry inspection. Section 4c was built from saved-login usernames and dates only. No passwords were read.</p>
+
+</main>
+
+</body></html>
